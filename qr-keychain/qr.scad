@@ -29,7 +29,7 @@
 [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
 [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0]];
 
-$fn=20;
+$fn=40;
 
 layer=0.4;
 bit_size=layer*6;
@@ -37,10 +37,7 @@ qr_width=len(qr[0])*bit_size;
 base_side=qr_width+bit_size*2;
 
 
-
-    translate([bit_size,base_side-bit_size,layer])
-    rotate([0,0,-90])
-    #qr_render(qr, module_size=bit_size, height=layer);
+    qr();
     
     ring();
     base(0,0, base_side, 2*layer);
@@ -48,6 +45,13 @@ base_side=qr_width+bit_size*2;
     
     emoji();
     
+    
+module qr()
+{
+        translate([bit_size,base_side-bit_size,0])
+    rotate([0,0,-90])
+    #qr_render(qr, module_size=bit_size, height=layer);
+}
 
 // QR code rendering method
 module qr_render(data, module_size, height) {
@@ -79,11 +83,14 @@ module emoji() {
 
 module ring()
 {
+
     translate([0,0,layer])
     
     difference(){
-        base(layer,layer,base_side-2*layer,layer);               
-        base(2*layer,2*layer, base_side-4*layer,layer);
+        base(bit_size/2,bit_size/2,base_side-bit_size,layer);        translate([0,0,1])
+        base(bit_size*1.4,bit_size*1.4, base_side-bit_size*2.8,4*layer);
+
+               
         }
     
     
@@ -95,10 +102,10 @@ module chain()
 {
     r0=10;
     r1=4;
-    c = base_side+r1;
+    c = base_side+r1+.25;
     #difference(){
-translate([c,c,-3*layer])    
-    cylinder(h=3*layer,r=r0,center=false);   
+translate([c,c,-2*layer])    
+    cylinder(h=2*layer,r=r0,center=false);   
 translate([c,c,-1.5])
     cylinder(h=2,r=r1);   
     }
