@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "qr2svg": {
+      "commandName": "Project",
+      "commandLineArgs": " --text \"https://bit.ly/amnda10\"  --debug"
+    }
+  }
+}
