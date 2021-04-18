@@ -1,14 +1,14 @@
 width=1.6;
 height=12;
 length=175;
-label_length = 60;
+label_length = 65;
 
 // https://fonts.google.com/share?selection.family=Alegreya%20Sans%20SC
-font_name="Alegreya Sans SC:style=Regular";
+font_name="Alegreya Sans SC:style=Bold";
 
-label_text="Aztek Negro";
+label_text="Blue Indigo";
 label_margin=1;
-label_size=height-width-label_margin*2;
+label_size=height-width-label_margin;
 
 svg();
 
