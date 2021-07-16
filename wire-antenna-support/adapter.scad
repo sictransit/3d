@@ -1,18 +1,31 @@
 dPole = 30;
 wPole = 3;
 hPole = 100;
+hTop=5;
 
 wNozzle=0.4;
 
+polys=60;
 
+$fn=polys;
 
-$fn=60;
-difference(){
-cap();
-#threads();
+difference() {
+    polefitting();
+    screw();
 }
 
-//threads();
+module screw() {
+    #translate([0,0,hPole])
+    cylinder(h=hTop, r=wNozzle*8, center=false);
+}
+
+
+module polefitting() {
+    difference(){
+        cap();
+        threads();        
+    }
+}
 
 
 module threads() {
@@ -21,18 +34,20 @@ module threads() {
 }
 
 module thread (dx, twist) {
-translate([0,0,0]){
-linear_extrude(height = hPole, convexity = 10, twist = twist)
-translate([dx, 0, 0])
-circle(r = wPole);
-}
+    translate([0,0,0]){
+        linear_extrude(height = hPole, convexity = 10, twist = twist)
+        translate([dx, 0, 0])
+        circle(r = wPole);
+    }
 }
 
 module cap() {
+    difference() {       
+        pole(hPole+hTop, dPole/2+wPole);
+        pole(hPole, dPole/2);
+    };
+}
 
-difference() {
-    cylinder(h=hPole+wPole, r=dPole/2+wPole, center=false);
-    translate([0,0,-wPole])
-    cylinder(h=hPole+wPole, r=dPole/2, center=false);
-};
+module pole(height, radius){
+    cylinder(h=height, r=radius, center=false);
 }
