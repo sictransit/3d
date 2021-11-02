@@ -1,11 +1,13 @@
-$fn=40;
+$fn=32;
 
-side = 19;
+side = 100/7;
 height = 1;
-slant = 3;
+slant = 2.5;
 
 cr = 2;
 safe = 1;
+
+d_nano=11.2;
 
 resolution = 0.16;
 spacing = side;
@@ -15,39 +17,47 @@ print();
 
 module print() {
     
+    
     difference(){
         keyboard();
+        #nano();
     }
-        #logo();
-        #copy();
+    
+    
     
 }
 
-module copy() {
-    
-    translate([side/2+-1,-2*side,0])
-    rotate([0,0,90])
-    linear_extrude(height=height/2) {    
-        text("MICKE",size=7,font="Segoe Script" );
-        }      
-}
-
-module logo() {
-    
-    translate([7.25*side,-side*1.5,0])
-    linear_extrude(height=height/2) {    
-        resize([side*0.95,side*0.95,0])    
-        import("geocaching.svg", center=true);
+module nano() {
+    translate([side*3.5,0,-10])
+    cylinder(20,d_nano/2,d_nano/2);
     }
-}
+    
+    
+module hole(offset) {
+    translate([offset,0,-resolution*8-2])
+    cube([5,26,4], center=true);
+    }    
+    
+module back() {
+    hull(){
+translate([-resolution,-side-resolution,-resolution*8])
+cube([7*side+2*resolution,2*side+2*resolution,resolution*8]);
+
+translate([0,-35/2,-resolution*8-2])
+cube([100,35,2]);
+    }
+
+    }    
+
 
 module keyboard() {
-translate([-resolution,-2*side-resolution,-resolution*8])
-cube([8*side+2*resolution,3*side+2*resolution,resolution*8]);
-
-    keyrow(0, 0, ["G","E","O","C","A","C", "H", "E"]);
-    keyrow(side/4*2,-side, ["G","C","9","G","0","5", "H"]);
-    keyrow(side/4*2+side/4,-side*2, ["Q","W","E","R","T","Y"]);
+    difference(){
+back();
+        #hole(6.4+5/2);
+        #hole(100-(6.4+5/2));
+    }
+    keyrow(0, 0, ["G","C","9","G","0","5", "H"]);
+    keyrow(side/4*2,-side, ["Q","W","E","R","T","Y"]);
     
 }
 
@@ -78,9 +88,9 @@ module keycap(letter) {
         translate([0,0,-safe*2]) {
             cube([side, side, safe*2]);
         }        
-        translate([slant,side-slant-9,height-h]) {
+        translate([side/2,side/2,height-h]) {
             linear_extrude(height=2*h, convexity=4)
-                text(letter,size=9,font="Arial Black" );
+                text(letter,size=8,valign="center", halign="center",font="Arial Black" );
         }    
     }
     
