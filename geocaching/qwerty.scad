@@ -1,8 +1,8 @@
-//$fn=40;
+$fn=40;
 
 side = 19;
-height = 2;
-slant = 2;
+height = 1;
+slant = 3;
 
 cr = 2;
 safe = 1;
@@ -17,26 +17,26 @@ module print() {
     
     difference(){
         keyboard();
+    }
         #logo();
         #copy();
-    }
     
 }
 
 module copy() {
     
-    translate([side/2+-1,-2*side+3,-5])
+    translate([side/2+-1,-2*side,0])
     rotate([0,0,90])
-    linear_extrude(height=10) {    
+    linear_extrude(height=height/2) {    
         text("MICKE",size=7,font="Segoe Script" );
         }      
 }
 
 module logo() {
     
-    translate([7.25*side,-side/2,-5])
-    linear_extrude(height=10) {    
-        resize([side*0.9,side*0.90,0])    
+    translate([7.25*side,-side*1.5,0])
+    linear_extrude(height=height/2) {    
+        resize([side*0.95,side*0.95,0])    
         import("geocaching.svg", center=true);
     }
 }
@@ -46,8 +46,8 @@ translate([-resolution,-2*side-resolution,-resolution*8])
 cube([8*side+2*resolution,3*side+2*resolution,resolution*8]);
 
     keyrow(0, 0, ["G","E","O","C","A","C", "H", "E"]);
-    keyrow(side/4*2,-side, ["Q","W","E","R","T","Y"]);
-    keyrow(side/4*2+side/4,-side*2, ["G","C","9","G","0","5", "H"]);
+    keyrow(side/4*2,-side, ["G","C","9","G","0","5", "H"]);
+    keyrow(side/4*2+side/4,-side*2, ["Q","W","E","R","T","Y"]);
     
 }
 
@@ -78,9 +78,9 @@ module keycap(letter) {
         translate([0,0,-safe*2]) {
             cube([side, side, safe*2]);
         }        
-        translate([slant,side-slant-8,height-h]) {
+        translate([slant,side-slant-9,height-h]) {
             linear_extrude(height=2*h, convexity=4)
-                text(letter,size=8,font="Arial Black" );
+                text(letter,size=9,font="Arial Black" );
         }    
     }
     
