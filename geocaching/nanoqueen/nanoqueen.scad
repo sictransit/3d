@@ -31,5 +31,5 @@ cube([100,100,100]);
 module magnet()
 {
 rotate([90,0,0])
-cylinder(h=1.2,r=1.2);
+cylinder(h=1.5,r=1.5);
 }
