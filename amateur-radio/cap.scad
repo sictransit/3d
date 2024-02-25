@@ -1,6 +1,6 @@
 dPole = 30;
 wPole = 3;
-hPole = 100;
+hPole = 102;
 hTop=5;
 
 wNozzle=0.4;
