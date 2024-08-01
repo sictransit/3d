@@ -8,6 +8,7 @@ scaling=0.082;
 //minkowski()
 main();     
 hook();
+support();
 
 module main(){
     translate([-9.86,0,0])
@@ -45,3 +46,13 @@ module hook(){
     }
 }
 
+module support(){
+    translate([-24.85,3.05,0])
+    cube([30,2,height]);
+    
+    translate([5.2,2,0])
+    cube([2.9,5,height]);
+    
+    translate([0,1.9,0])
+    #cube([8.1,2,height]);
+}
